@@ -1,14 +1,11 @@
 const express = require("express");
 const app = express();
 const routers = require("./routers");
-<<<<<<< Updated upstream
-=======
-const db = require("./models");
-const session = require("express-session");
-const { strategyMiddleware } = require("./middlewares/strategy");
-const passport = require("passport");
 
->>>>>>> Stashed changes
+const session = require("express-session");
+const passport = require("passport");
+const db = require("./models");
+
 const port = 3333;
 
 app.use(express.json());
@@ -25,6 +22,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", routers);
 
-app.listen(port, () => {
-  console.log(`Server open port : ${port}`);
+app.listen(port, async () => {
+  try {
+    //await db.sequelize.sync({ force: false });
+    console.log("db conn ..!");
+
+    console.log(`finally, Server open port : ${port}`);
+  } catch (err) {
+    throw err;
+  }
 });
