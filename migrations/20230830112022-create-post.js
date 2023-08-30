@@ -2,21 +2,17 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Users", {
+    await queryInterface.createTable("Posts", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      userid: {
-        primaryKey: true,
+      title: {
         type: Sequelize.STRING,
       },
-      userpw: {
-        type: Sequelize.STRING,
-      },
-      username: {
+      content: {
         type: Sequelize.STRING,
       },
       createdAt: {
@@ -30,10 +26,8 @@ module.exports = {
         type: Sequelize.DATE,
       },
     });
-
-    await queryInterface.addIndex("Users", ["userid"]);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("Users");
+    await queryInterface.dropTable("Posts");
   },
 };

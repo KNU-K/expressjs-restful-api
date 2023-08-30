@@ -8,10 +8,15 @@ const sequelize = new Sequelize(database, username, password, {
 });
 
 const User = require("./user")(sequelize, Sequelize.DataTypes);
+const Post = require("./post")(sequelize, Sequelize.DataTypes);
 
 const db = {};
+User.associate(Post);
+Post.associate(User);
 
 db.sequelize = sequelize;
 
 db.User = User;
+db.Post = Post;
+
 module.exports = db;
