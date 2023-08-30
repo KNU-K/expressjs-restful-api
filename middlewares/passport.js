@@ -65,4 +65,19 @@ const strategy = {
   ),
 };
 
-module.exports = strategy;
+const serialize = (user, done) => {
+  console.log("serialize User ", user.userid);
+  done(null, user.userid);
+};
+const deserialize = async (id, done) => {
+  try {
+    const user = await User.findByPk(id);
+
+    console.log("succeed deserialize User ", id);
+    done(null, user.dataValues);
+  } catch (err) {
+    done(err, null);
+  }
+};
+
+module.exports = { strategy, serialize, deserialize };
