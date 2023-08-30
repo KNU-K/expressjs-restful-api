@@ -5,6 +5,7 @@ const routers = require("./routers");
 const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
+const { ErrorHandler } = require("./middlewares/error");
 
 const port = 3333;
 
@@ -21,10 +22,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use("/api", routers);
-
+app.use(ErrorHandler);
 app.listen(port, async () => {
   try {
-    //await db.sequelize.sync({ force: false });
+    await db.sequelize.sync({ force: false });
     console.log("db conn ..!");
 
     console.log(`finally, Server open port : ${port}`);
