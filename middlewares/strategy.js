@@ -1,6 +1,7 @@
 const passport = require("passport");
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
+const CustomError = require("../helpers/customError");
 const LocalStrategy = require("passport-local").Strategy;
 
 // localLoginCallback(){
@@ -12,11 +13,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const localLoginCallback = async (userid, userpw, done) => {
   try {
     const user = await User.findByPk(userid);
-    if (!user) throw new Error("no exist your userid");
+    if (!user) throw new CustomError(403, "no exist your userid");
     const crytoPw = user.dataValues.userpw;
 
     if (!(await bcrypt.compare(userpw, crytoPw)))
-      throw new Error("no same your userpw associated with your id");
+      throw new CustomError(403, "no same your userpw associated with your id");
 
     done(user.dataValues, null);
   } catch (err) {
@@ -28,7 +29,7 @@ const localJoinCallback = async (req, userid, userpw, done) => {
     const { username } = req.body;
 
     const user = await User.findByPk(userid);
-    if (user) throw new Error("already exist id");
+    if (user) throw new CustomError(403, "already exist id");
 
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
