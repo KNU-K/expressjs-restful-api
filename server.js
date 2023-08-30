@@ -6,7 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
 const { ErrorHandler } = require("./middlewares/error");
-
+const { PostService } = require("./services/post.service");
 const port = 3333;
 
 app.use(express.json());
@@ -28,6 +28,7 @@ app.listen(port, async () => {
     await db.sequelize.sync({ force: false });
     console.log("db conn ..!");
 
+    await PostService.initializePost();
     console.log(`finally, Server open port : ${port}`);
   } catch (err) {
     throw err;
