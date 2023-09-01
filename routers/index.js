@@ -1,29 +1,15 @@
 const router = require("express").Router();
 const passport = require("passport");
-const { local_login, local_join } = require("../middlewares/strategy");
+const { strategy, serialize, deserialize } = require("../middlewares/passport");
 const user = require("./user.router");
-const { User } = require("../models");
-// router.get("/", (req, res) => {
-//   res.json({
-//     test: "test",
-//   });
-// });
+const post = require("./post.router");
+const { User, Post } = require("../models");
+passport.use("local_login", strategy.local_login);
+passport.use("local_join", strategy.local_join);
+passport.serializeUser(serialize);
+passport.deserializeUser(deserialize);
 
-passport.use("local_login", local_login);
-passport.use("local_join", local_join);
-passport.serializeUser((user, done) => {
-  console.log("serialize User ", user.userid);
-  done(null, user.userid);
-});
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await User.findByPk(id);
-
-    console.log("succeed deserialize User ", id);
-    done(null, user.dataValues);
-  } catch (err) {
-    done(err, null);
-  }
-});
+//api
 router.use("/user", user);
+router.use("/post", post);
 module.exports = router;

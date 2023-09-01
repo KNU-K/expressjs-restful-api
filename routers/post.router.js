@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const CustomError = require("../helpers/custom-error");
+=======
+const CustomError = require("../helpers/customError");
+>>>>>>> master
 const { authMiddleware } = require("../middlewares/auth");
 const { PostService } = require("../services/post.service");
 

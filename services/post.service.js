@@ -1,6 +1,10 @@
 const { Sequelize } = require("sequelize");
 const { Post } = require("../models");
+<<<<<<< HEAD
 const CustomError = require("../helpers/custom-error");
+=======
+const CustomError = require("../helpers/customError");
+>>>>>>> master
 
 posts = [];
 class PostService {

@@ -7,8 +7,12 @@ const passport = require("passport");
 const db = require("./models");
 const cors = require("cors");
 const { ErrorHandler } = require("./middlewares/error");
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
+=======
+const { PostService } = require("./services/post.service");
+>>>>>>> master
 const port = 3333;
 =======
 const { PostService } = require("./services/post.service");
@@ -42,6 +46,7 @@ app.listen(port, async () => {
     await db.sequelize.sync({ force: false });
     console.log("db conn ..!");
 
+    await PostService.initializePost();
     console.log(`finally, Server open port : ${port}`);
   } catch (err) {
     throw err;
