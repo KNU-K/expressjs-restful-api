@@ -1,7 +1,7 @@
 const passport = require("passport");
 const { User } = require("../models");
 const bcrypt = require("bcrypt");
-const CustomError = require("../helpers/customError");
+const CustomError = require("../helpers/custom-error");
 const LocalStrategy = require("passport-local").Strategy;
 
 // localLoginCallback(){

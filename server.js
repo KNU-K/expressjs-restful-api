@@ -5,10 +5,24 @@ const routers = require("./routers");
 const session = require("express-session");
 const passport = require("passport");
 const db = require("./models");
+const cors = require("cors");
 const { ErrorHandler } = require("./middlewares/error");
+<<<<<<< Updated upstream
 
 const port = 3333;
+=======
+const { PostService } = require("./services/post.service");
+>>>>>>> Stashed changes
 
+const port = 3333;
+app.use(
+  cors({
+    exposedHeaders: ["Authorization"],
+    sameSite: "none",
+    origin: true,
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
